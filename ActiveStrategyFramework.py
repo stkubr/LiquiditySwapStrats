@@ -331,4 +331,4 @@ def plot_strategy(data_strategy,y_axis_label,base_color = '#ff0000'):
         yaxis_title=y_axis_label,
     )
 
-    fig_strategy.show(renderer="png")
+    fig_strategy.show()
