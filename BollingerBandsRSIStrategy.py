@@ -188,6 +188,9 @@ class BollingerBandsRSIStrategy:
         TICK_B_PRE = int(math.log(current_strat_obs.decimal_adjustment * limit_range_upper, 1.0001))
         TICK_B = int(round(TICK_B_PRE / current_strat_obs.tickSpacing) * current_strat_obs.tickSpacing)
 
+        if TICK_A == TICK_B:
+            TICK_B = TICK_B + 1
+
         liquidity_placed_limit = int(UNI_v3_funcs.get_liquidity(current_strat_obs.price_tick, TICK_A, TICK_B, \
                                                                 limit_amount_0, limit_amount_1,
                                                                 current_strat_obs.decimals_0,
