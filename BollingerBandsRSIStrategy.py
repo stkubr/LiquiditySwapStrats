@@ -110,12 +110,12 @@ class BollingerBandsRSIStrategy:
         bollinger_bands = self.generate_Bollinger_Bands_RSI_limits(current_strat_obs.time)
 
         strategy_info = dict()
-        strategy_info['reset_range_lower'] = bollinger_bands['upper_bb']
-        strategy_info['reset_range_upper'] = bollinger_bands['lower_bb']
+        strategy_info['reset_range_lower'] = bollinger_bands['lower_bb']
+        strategy_info['reset_range_upper'] = bollinger_bands['upper_bb']
 
         # Set the base range
-        base_range_lower = bollinger_bands['upper_bb']
-        base_range_upper = bollinger_bands['lower_bb']
+        base_range_lower = bollinger_bands['lower_bb']
+        base_range_upper = bollinger_bands['upper_bb']
 
         save_ranges = []
 
