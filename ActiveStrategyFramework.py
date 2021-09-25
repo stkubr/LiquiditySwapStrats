@@ -260,10 +260,10 @@ def analyze_strategy(data_in,initial_position_value,token_0_usd_data=None,freque
                         'sharpe_ratio'         : float(net_apr / (((data_usd['value_position_usd'].pct_change().var())**(0.5)) * ((annualization_factor)**(0.5)))),
         
                         'mean_base_position'   : (data_usd['base_position_value']/ \
-                                                  (data_usd['base_position_value']+data_usd['limit_position_value']+data_usd['value_left_over'])).mean(),
+                                                  (data_usd['base_position_value']+data_usd['value_left_over'])).mean(),
         
                         'median_base_position' : (data_usd['base_position_value']/ \
-                                                  (data_usd['base_position_value']+data_usd['limit_position_value']+data_usd['value_left_over'])).median()
+                                                  (data_usd['base_position_value']+data_usd['value_left_over'])).median()
                     }
     
     return summary_strat
@@ -290,20 +290,20 @@ def plot_strategy(data_strategy,y_axis_label,base_color = '#ff0000'):
         fill='tonexty', # fill area between trace0 and trace1
         mode='lines', line_color=base_color))
 
-    fig_strategy.add_trace(go.Scatter(
-        x=data_strategy['time'], 
-        y=1/data_strategy['limit_range_lower'],
-        fill=None,
-        mode='lines',
-        showlegend = False,
-        line_color='#6f6f6f'))
+    # fig_strategy.add_trace(go.Scatter(
+    #     x=data_strategy['time'],
+    #     y=1/data_strategy['limit_range_lower'],
+    #     fill=None,
+    #     mode='lines',
+    #     showlegend = False,
+    #     line_color='#6f6f6f'))
 
-    fig_strategy.add_trace(go.Scatter(
-        x=data_strategy['time'], 
-        y=1/data_strategy['limit_range_upper'],
-        name='Base + Limit Position',
-        fill='tonexty', # fill area between trace0 and trace1
-        mode='lines', line_color='#6f6f6f',))
+    # fig_strategy.add_trace(go.Scatter(
+    #     x=data_strategy['time'],
+    #     y=1/data_strategy['limit_range_upper'],
+    #     name='Base + Limit Position',
+    #     fill='tonexty', # fill area between trace0 and trace1
+    #     mode='lines', line_color='#6f6f6f',))
 
     fig_strategy.add_trace(go.Scatter(
         x=data_strategy['time'], 
