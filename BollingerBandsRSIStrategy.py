@@ -5,12 +5,13 @@ from statsmodels.distributions.empirical_distribution import ECDF, monotone_fn_i
 import UNI_v3_funcs
 
 class BollingerBandsRSIStrategy:
-    def __init__(self, model_data, alpha_param, tau_param, rolling_window_period):
+    def __init__(self, model_data, alpha_param, tau_param, rolling_window_period, rsi_power):
 
         self.model_data = model_data
         self.alpha_param = alpha_param
         self.tau_param = tau_param
         self.rolling_window_period = rolling_window_period
+        self.rsi_power = rsi_power
 
         
     def check_strategy(self, current_strat_obs, strategy_info):
@@ -49,8 +50,8 @@ class BollingerBandsRSIStrategy:
 
         rsi = self.calc_rsi(price_returns, period).tail(1)[0]/100
 
-        upper_band = prices.rolling(period).mean() + 0.8*2*prices.rolling(period).std() + 0.2*2*prices.rolling(period).std() * (rsi)
-        lower_band = prices.rolling(period).mean() - 0.8*2*prices.rolling(period).std() - 0.2*2*prices.rolling(period).std() * (1 - rsi)
+        upper_band = prices.rolling(period).mean() + (1-self.rsi_power)*2*prices.rolling(period).std() + self.rsi_power*2*prices.rolling(period).std() * (rsi)
+        lower_band = prices.rolling(period).mean() - (1-self.rsi_power)*2*prices.rolling(period).std() - self.rsi_power*2*prices.rolling(period).std() * (1 - rsi)
         mid_point = prices.rolling(period).mean()
 
         result_dict = {'upper_bb': upper_band.tail(1)[0],
